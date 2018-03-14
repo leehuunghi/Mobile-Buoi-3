@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,56 +43,51 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void xuLySignup() {
+        if (txtUsername.getText().toString() == "" || txtPassword.getText().toString() == "" || txtBirthdate.getText().toString() == ""
+                || txtRetype.getText().toString() == "" || (radMale.isChecked() == false && radFemale.isChecked() == false)
+                || (chkTennis.isChecked() == false && chkFutbal.isChecked() == false && chkOthers.isChecked() == false)) {
+            Toast.makeText(MainActivity.this,"Vui lòng điền đủ thông tin!",Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(MainActivity.this, ResultActivity.class);
 
-        Intent intent =new Intent(MainActivity.this,ResultActivity.class);
-
-        intent.putExtra("username",txtUsername.getText().toString());
-        intent.putExtra("password",txtPassword.getText().toString());
-        intent.putExtra("birthdate",txtBirthdate.getText().toString());
-        String gender="";
-        if (radMale.isChecked())
-        {
-            gender+=radMale.getText().toString();
-        }
-        if (radFemale.isChecked())
-        {
-            gender+=radFemale.getText().toString();
-        }
-        intent.putExtra("gender",gender);
-        String hobbies="";
-        int flag=0;
-        if (chkTennis.isChecked())
-        {
-            flag=1;
-            hobbies+=chkTennis.getText().toString();
-        }
-        if (chkFutbal.isChecked())
-        {
-            if(flag==1)
-            {
-                hobbies+=", "+chkFutbal.getText().toString();
+            intent.putExtra("username", txtUsername.getText().toString());
+            intent.putExtra("password", txtPassword.getText().toString());
+            intent.putExtra("birthdate", txtBirthdate.getText().toString());
+            String gender = "";
+            if (radMale.isChecked()) {
+                gender += radMale.getText().toString();
             }
-            else
-            {
-                flag=1;
-                hobbies+=chkFutbal.getText().toString();
+            if (radFemale.isChecked()) {
+                gender += radFemale.getText().toString();
             }
+            intent.putExtra("gender", gender);
+            String hobbies = "";
+            int flag = 0;
+            if (chkTennis.isChecked()) {
+                flag = 1;
+                hobbies += chkTennis.getText().toString();
+            }
+            if (chkFutbal.isChecked()) {
+                if (flag == 1) {
+                    hobbies += ", " + chkFutbal.getText().toString();
+                } else {
+                    flag = 1;
+                    hobbies += chkFutbal.getText().toString();
+                }
 
+            }
+            if (chkOthers.isChecked()) {
+                if (flag == 1) {
+                    hobbies += ", " + chkOthers.getText().toString();
+                } else {
+                    hobbies += chkOthers.getText().toString();
+                }
+
+            }
+            intent.putExtra("hobbies", hobbies);
+
+            startActivityForResult(intent, 64);
         }
-        if (chkOthers.isChecked())
-        {
-            if(flag==1)
-            {
-                hobbies+=", "+chkOthers.getText().toString();
-            }
-            else {
-                hobbies += chkOthers.getText().toString();
-            }
-
-        }
-        intent.putExtra("hobbies",hobbies);
-
-        startActivityForResult(intent,64);
     }
 
     private void xuLyReset() {
