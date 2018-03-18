@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ResultActivity extends AppCompatActivity {
+public class resultform extends AppCompatActivity {
 
     TextView txtUsername,txtPassword,txtBirthdate,txtGender,txtHobbies;
     Button btnExit;
@@ -27,7 +27,7 @@ public class ResultActivity extends AppCompatActivity {
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), registerform.class);
                 startActivity(intent);
                 Intent startMain = new Intent(Intent.ACTION_MAIN);
                 startMain.addCategory(Intent.CATEGORY_HOME);
